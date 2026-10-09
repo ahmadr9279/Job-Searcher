@@ -11,24 +11,37 @@
     <!-- bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     
-    <!-- custom css -->
-    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <!-- custom css (added leading slash for reliable routing) -->
+    <link rel="stylesheet" href="/css/style.css" type="text/css">
     <!-- custom JS -->
-    <script src="js/script.js"></script>
+    <script src="/js/script.js"></script>
   </head>
   <body>
     
-    <div class="container-fluid"> #calling Job description in the hash using key.
+    <div class="container-fluid"> 
+      <!-- calling Job description in the hash using key. -->
       <h1>Job result</h1>
-      <h3>Job title : <%= @job_offer["title"] %></h3> 
-      <h3>Company : <%= @job_offer["company"] %></h3> 
-      <h3>salary : <%= @job_offer["salary_min"] %> - <%= @job_offer["salary_max"] %></h3> 
-     <h3>Job offer in : <%= @job_offer["locations"] %></h3>
-     <h4>Current Local Time in <%= @job_offer["locations"] %> : <%= @job_offer["date"] %></h4> 
-      <h3>description : <%= @job_offer["description"] %></h3>
-      <p><a href=<%= @job_offer["url"] %>>Click here to see more about this job offer</a></p>
-       
       
+      <% if @job_offer %>
+        <!-- If a job is found, display its details -->
+        <h3>Job title : <%= @job_offer["title"] %></h3> 
+        <h3>Company : <%= @job_offer["company"] %></h3> 
+        <h3>Salary : <%= @job_offer["salary_min"] %> - <%= @job_offer["salary_max"] %></h3> 
+        <h3>Job offer in : <%= @job_offer["locations"] %></h3>
+        <h4>Job Posted On : <%= @job_offer["date"] %></h4> 
+        <h3>Description : <%= @job_offer["description"] %></h3>
+        
+        <!-- Added quotes around the URL and target="_blank" to open in a new tab -->
+        <p><a href="<%= @job_offer["url"] %>" target="_blank">Click here to see more about this job offer</a></p>
+      
+      <% else %>
+        <!-- If no job is found (or the API blocked the dummy IP), show this instead of crashing -->
+        <br>
+        <h3>Sorry, no jobs were found matching your search.</h3>
+        <p>This could be because the API key is missing or the API blocked the dummy IP address.</p>
+        <p><a href="/">Go back and try again</a></p>
+      <% end %>
+        
     </div>
     
   </body>
