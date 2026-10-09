@@ -1,7 +1,6 @@
 source "https://rubygems.org"
 
-# Specify a modern Ruby version (adjust if you have a different version installed locally)
-ruby '3.3.0'
+ruby '4.0.7'
 
 # Core framework and server
 gem 'sinatra', '~> 4.0'
